@@ -16,7 +16,7 @@ export class AuthService {
 
 	private user: User;
 
-	private loginStorageKey = 'sof_login';
+	private loginStorageKey = 'gilly_login';
 
 	userLoggedIn$: BehaviorSubject<User> = new BehaviorSubject<User>(null);
 
