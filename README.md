@@ -1,6 +1,8 @@
 # Gilly
 Personal monorepo for all my projects
 
+Uses [Nx](https://nx.dev/) for manging the mono. Follow their guide for installation instructions.
+
 ## Applications 
 
 ### [Dakimbo Server](https://github.com/PaddingtonTheBear/gilly/tree/master/apps/dakimbo-server)
