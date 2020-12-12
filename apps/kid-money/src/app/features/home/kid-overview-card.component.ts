@@ -24,7 +24,7 @@ import { Kid } from '../../../../../../libs/entities/kid-money/kid';
 						pButton
 						label="View"
 						icon="pi pi-eye"
-						class="bg-primary text-white"
+						class=""
 						[routerLink]="['/kid', kid.id]"
 					></button>
 				</div>

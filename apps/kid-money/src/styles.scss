@@ -1,15 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 
-// @import '~bootstrap/scss/bootstrap';
 $primary: #857aff;
-$secondary: #7ae9ff;
+$secondary: #377dff;
 $info: #c87aff;
-
-@import '~bootstrap/scss/functions';
-@import '~bootstrap/scss/_variables';
-@import '~bootstrap/scss/_mixins';
-@import '~bootstrap/scss/_utilities';
-@import '~bootstrap/scss/grid';
 
 @import '../../../libs/app-shell/src/index.scss';
 

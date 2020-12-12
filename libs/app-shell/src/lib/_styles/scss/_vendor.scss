@@ -2,10 +2,10 @@
 // @import 'variables';
 
 // @import '~bootstrap/scss/bootstrap';
-// @import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/functions";
 @import "~bootstrap/scss/variables";
 @import "~bootstrap/scss/mixins";
-// @import "~bootstrap/scss/reboot";
+@import "~bootstrap/scss/reboot";
 @import "~bootstrap/scss/grid";
 @import "~bootstrap/scss/utilities";
 // @import "~bootstrap/scss/tables";
