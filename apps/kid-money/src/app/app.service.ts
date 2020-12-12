@@ -5,7 +5,7 @@ import { filter, map } from 'rxjs/operators';
 
 import { DataService } from '../../../../libs/data/src/lib/services/data/data.service';
 import { Kid } from '../../../../libs/entities/kid-money/kid';
-import { capitalizeFirstLetter } from './../../../../libs/utilities/src/lib/utilities/strings/capitalizeFirstLetter';
+import { capitilizeFirstLetter } from './../../../../libs/utilities/src/lib/utilities/strings/capitilizeFirstLetter';
 
 @Injectable({ providedIn: 'root' })
 export class AppService {
@@ -35,7 +35,7 @@ export class AppService {
 					.filter((p) => p && p !== '' && p !== 'home');
 
 				this.breadcrumbs = routerParts.map((part, i) => {
-					let label = capitalizeFirstLetter(part);
+					let label = capitilizeFirstLetter(part);
 
 					let routerLink = '';
 					for (let p = 0; p <= i; p++) {

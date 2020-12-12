@@ -1,5 +1,5 @@
-import { deepClone } from '@sof/utilities';
 import { isDate } from '../dates/isDate';
+import { deepClone } from '../deepClone';
 
 export interface ValueExpression {
 	prop: string;
