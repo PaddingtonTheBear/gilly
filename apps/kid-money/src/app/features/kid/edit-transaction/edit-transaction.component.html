@@ -2,10 +2,14 @@
 	<ng-template #main>
 		<p-card
 			[header]="(transaction.id ? 'Edit' : 'Create') + ' Transaction'"
-			styleClass="bg-white mt-3 mb-3"
+			styleClass="mt-3 mb-3"
 		>
 			<ui-form
-				[config]="{ fieldConfig: transactionFieldConfig, value: transaction, hideControls: true }"
+				[config]="{
+					fieldConfig: transactionFieldConfig,
+					value: transaction,
+					hideControls: true
+				}"
 				(formChanged)="handleFormChange($event)"
 			></ui-form>
 
