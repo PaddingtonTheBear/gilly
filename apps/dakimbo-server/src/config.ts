@@ -29,6 +29,8 @@ const fs = require('fs');
 
 const isProd = process.env.IS_PROD === 'true';
 
+const serverUrl = isProd ? process.env.SERVER_URL : process.env.SERVER_URL_DEV;
+
 const httpPort = isProd ? +process.env.SERVER_PORT_HTTP : +process.env.SERVER_PORT_HTTP_DEV || 1337;
 const httpsPort = isProd
 	? +process.env.SERVER_PORT_HTTPS
