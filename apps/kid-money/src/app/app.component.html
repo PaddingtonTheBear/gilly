@@ -16,6 +16,5 @@
 <p-toast position="bottom-center" key="appToast"></p-toast>
 
 <p-sidebar [(visible)]="showSidebar" *ngIf="auth.isAuthenticated()">
-	SIDEBAR
 	<p-breadcrumb [model]="appService.breadcrumbs" [home]="appService.home"></p-breadcrumb>
 </p-sidebar>
