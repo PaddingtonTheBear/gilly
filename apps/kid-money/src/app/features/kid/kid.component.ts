@@ -5,7 +5,7 @@ import { DataService } from '../../../../../../libs/data/src/lib/services/data/d
 import { Kid } from '../../../../../../libs/entities/kid-money/kid';
 
 @Component({
-	selector: 'kid',
+	selector: 'km-kid',
 	template: `
 		<ng-container *ngIf="dataService.selectActive('Kid') | async as activeKid; else createKid">
 			<lib-page-container [fluidMain]="false">
