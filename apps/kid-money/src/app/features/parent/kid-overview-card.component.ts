@@ -25,7 +25,7 @@ import { Kid } from '../../../../../../libs/entities/kid-money/kid';
 						label="View"
 						icon="pi pi-eye"
 						class=""
-						[routerLink]="['/kid', kid.id]"
+						[routerLink]="['../kid', kid.id]"
 					></button>
 				</div>
 			</p-footer>

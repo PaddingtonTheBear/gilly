@@ -13,6 +13,7 @@ import { AppService } from './app.service';
 	styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+	showSidebar: boolean = false;
 
 	constructor(
 		private dataService: DataService,

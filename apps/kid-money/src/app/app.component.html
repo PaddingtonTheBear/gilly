@@ -2,13 +2,10 @@
 	<ng-template #header>
 		<div class="w-100">
 			<div class="w-100 bg-primary shadow-lg">
-				<img
-					src="assets/icons/icon-36x36.png"
-					class="ml-3 clickable"
-					[routerLink]="['.']"
-				/>
+				<button pButton class="p-button-text" (click)="showSidebar = true">
+					<img src="assets/icons/icon-36x36.png" class="ml-3 clickable" />
+				</button>
 			</div>
-			<!-- <p-breadcrumb [model]="appService.breadcrumbs" [home]="appService.home"></p-breadcrumb> -->
 		</div>
 	</ng-template>
 	<ng-template #main>
@@ -17,3 +14,8 @@
 </lib-page-container>
 
 <p-toast position="bottom-center" key="appToast"></p-toast>
+
+<p-sidebar [(visible)]="showSidebar" *ngIf="auth.isAuthenticated()">
+	SIDEBAR
+	<p-breadcrumb [model]="appService.breadcrumbs" [home]="appService.home"></p-breadcrumb>
+</p-sidebar>

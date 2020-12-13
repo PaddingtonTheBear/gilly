@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 
 import { PageContainerModule } from '../../../../../../libs/app-shell/src/lib/components/page-container/page-container.module';
@@ -15,7 +14,6 @@ import { KMParentComponent } from './parent.component';
 		CommonModule,
 
 		CardModule,
-		ButtonModule,
 
 		CoreModule,
 
