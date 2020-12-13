@@ -7,7 +7,7 @@ import { KidService } from './../kid.service';
 	selector: 'kid-toolbar',
 	template: `
 		<p-toolbar class="w-100">
-			<div class="w-100 d-flex align-items-center justify-content-between">
+			<div class="w-100 d-flex align-items-center justify-content-between p-2">
 				<div>
 					<span style="font-size:1.5rem;font-weight:bold;">
 						{{ kidFullName }}
@@ -30,15 +30,15 @@ import { KidService } from './../kid.service';
 					<button
 						pButton
 						icon="pi pi-plus"
-						class="p-button-rounded p-button-text"
+						class="p-button-rounded"
 						[routerLink]="['./transaction']"
 					></button>
 				</div>
 			</div>
 
-			<div class="w-100 border-top d-flex justify-content-between">
+			<div class="w-100 border-top d-flex justify-content-between p-2">
 				<h2>Money</h2>
-				<h4>{{ activeKid.money }}</h4>
+				<h3>{{ activeKid.money }}</h3>
 			</div>
 		</p-toolbar>
 	`,
