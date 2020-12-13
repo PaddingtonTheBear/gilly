@@ -16,5 +16,17 @@
 <p-toast position="bottom-center" key="appToast"></p-toast>
 
 <p-sidebar [(visible)]="showSidebar" *ngIf="auth.isAuthenticated()">
-	<p-breadcrumb [model]="appService.breadcrumbs" [home]="appService.home"></p-breadcrumb>
+	<lib-page-container>
+		<ng-template #header>
+			<p-breadcrumb [model]="appService.breadcrumbs" [home]="appService.home"></p-breadcrumb>
+		</ng-template>
+		<ng-template #main>
+			SIDEBAR CONTENT
+		</ng-template>
+		<ng-template #footer>
+			<div class="w-100 pt-1">
+				<button pButton class="w-100" label="Log Out" icon="pi pi-sign-out"></button>
+			</div>
+		</ng-template>
+	</lib-page-container>
 </p-sidebar>
