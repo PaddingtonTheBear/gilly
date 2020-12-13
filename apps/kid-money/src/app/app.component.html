@@ -11,7 +11,7 @@
 				<p-button
 					label="Requests"
 					icon="pi pi-inbox"
-					badge="8"
+					[badge]="requests?.length"
 					class="p-button-info"
 					(click)="requestMenu.toggle($event)"
 				></p-button>

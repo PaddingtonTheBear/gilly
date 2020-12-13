@@ -32,7 +32,7 @@ import { Kid } from '../../../../../../../libs/entities/kid-money/kid';
 					></button>
 				</div>
 
-				<p-overlayPanel #tControls [showCloseIcon]="true" [appendTo]="controls">
+				<p-overlayPanel #tControls [showCloseIcon]="true" appendTo="body">
 					<ng-template pTemplate>
 						<div class="p-grid">
 							<div class="p-col-12 d-flex justify-content-center">
