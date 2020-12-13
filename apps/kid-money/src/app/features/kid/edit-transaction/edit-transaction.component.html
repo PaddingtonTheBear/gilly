@@ -16,7 +16,9 @@
 			<div class="mb-3 col-12">
 				<h4 class="w-100 border-bottom">Pictures</h4>
 				<p-fileUpload
-					#picauto
+					#transactionPicture
+					*ngIf="transaction.pictures"
+					[files]="transaction.pictures"
 					multiple="multiple"
 					accept="image/*"
 					maxFileSize="10000000"
@@ -25,6 +27,11 @@
 					customUpload="true"
 					(uploadHandler)="uploadPictures($event)"
 				>
+					<ng-template pTemplate="toolbar"></ng-template>
+					<ng-template let-file pTemplate="file"></ng-template>
+					<ng-template pTemplate="content" let-files>
+						<ng-container *ngFor="let file of files"></ng-container>
+					</ng-template>
 				</p-fileUpload>
 			</div>
 		</p-card>

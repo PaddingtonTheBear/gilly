@@ -1,7 +1,9 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 
+import { Picture } from '../../../../../../../libs/entities/_common/picture';
 import { KidService } from '../kid.service';
 import { DataService } from './../../../../../../../libs/data/src/lib/services/data/data.service';
 import { Kid } from './../../../../../../../libs/entities/kid-money/kid';
@@ -17,11 +19,14 @@ export class EditKidComponent implements OnInit, OnDestroy {
 
 	kids$;
 	activeKid$;
-	pictures: any[] = [];
+
+	pictures: Picture[] = [];
+	picturesModified: boolean = false;
 
 	constructor(
 		public dataService: DataService,
 		public kidService: KidService,
+		private http: HttpClient,
 		private messageService: MessageService,
 		private router: Router,
 		private route: ActivatedRoute
@@ -53,6 +58,11 @@ export class EditKidComponent implements OnInit, OnDestroy {
 
 	onSubmit() {
 		this.kidService.saveKid({ ...this.kid, pictures: this.pictures });
+
+		if (this.picturesModified) {
+			this.picturesModified = false;
+		}
+
 		this.router.navigate(['../'], { relativeTo: this.route });
 	}
 
@@ -62,14 +72,17 @@ export class EditKidComponent implements OnInit, OnDestroy {
 		}
 	}
 
-	async uploadPictures(event) {
+	uploadPictures(event) {
+		this.picturesModified = true;
+
 		for (let file of event.files) {
 			this.pictures.push({
-				name: file.name,
+				fileName: file.name,
 				size: file.size,
-				lastModified: file.lastModified,
+				lastModifiedDate: file.lastModified,
 				type: file.type,
-				file: file
+				file: file,
+				kid: this.kid
 			});
 		}
 	}

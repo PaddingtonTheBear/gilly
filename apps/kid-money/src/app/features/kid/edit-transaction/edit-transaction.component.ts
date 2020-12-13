@@ -42,6 +42,7 @@ export class EditTransactionComponent implements OnInit {
 					this.transaction = this.activeKid.transactions.find(
 						(t) => t.id === transactionId
 					);
+					if (!this.transaction.pictures) this.transaction.pictures = [];
 				}
 			}
 		});
@@ -70,6 +71,7 @@ export class EditTransactionComponent implements OnInit {
 	}
 
 	uploadPictures(event) {
-		console.log(event);
+		this.transaction.pictures = [...this.transaction.pictures, ...event.files];
+		console.log(this.transaction);
 	}
 }

@@ -39,7 +39,7 @@ export class KidOverviewCardComponent implements OnInit {
 	set kid(k: Kid) {
 		this.kidFullName = Kid.getKidFullName(k);
 		if (k.pictures && k.pictures.length) {
-			this.kidPicture = k.pictures[0].path;
+			this.kidPicture = k.pictures[0].url;
 		}
 		this._kid = k;
 	}

@@ -7,10 +7,13 @@ import { KMTransaction } from '../kid-money/km-transaction';
 @Entity()
 export class Picture extends BaseModel {
 	@Column({ nullable: true })
-	path?: string;
+	url?: string;
 
 	@Column({ nullable: true })
-	name: string;
+	fileName?: string;
+
+	@Column({ nullable: true })
+	type?: string;
 
 	@Column({ nullable: true })
 	extension?: string;
@@ -23,10 +26,10 @@ export class Picture extends BaseModel {
 
 	// RELATIONSHIPS
 	@ManyToOne((type) => Kid, (kid) => kid.pictures)
-	kid: Kid;
+	kid?: Kid;
 
 	@ManyToOne((type) => KMTransaction, (kmTransaction) => kmTransaction.pictures)
-	kmTransaction: KMTransaction;
+	kmTransaction?: KMTransaction;
 
 	file?: any;
 

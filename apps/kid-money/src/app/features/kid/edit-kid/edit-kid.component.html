@@ -2,10 +2,10 @@
 	<lib-page-container>
 		<ng-template #main>
 			<p-card [header]="'Edit ' + activeKid.firstName" styleClass="mt-3 mb-3">
-				<!-- <div *ngFor="let picture of pictures">
-                        {{ picture.name }}
-                        <img [src]="getPictureSrc(picture)" />
-					</div> -->
+				<div *ngFor="let picture of pictures">
+					{{ picture.name }}
+					<img [src]="picture.url" />
+				</div>
 
 				<ui-form
 					[config]="{ fieldConfig: kidFieldConfig, value: activeKid, hideControls: true }"
