@@ -3,8 +3,11 @@
 $primary: #857aff;
 $secondary: #377dff;
 $info: #c87aff;
+$dark: #2e2e2e;
 
 @import '../../../libs/app-shell/src/index.scss';
+
+@import './assets/themes/mdc-dark-deeppurple/theme.scss';
 
 html {
 	font-size: 14px !important;
