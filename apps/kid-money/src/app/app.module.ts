@@ -5,8 +5,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MessageService } from 'primeng/api';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { ButtonModule } from 'primeng/button';
+import { RippleModule } from 'primeng/ripple';
 import { SidebarModule } from 'primeng/sidebar';
 import { ToastModule } from 'primeng/toast';
+import { MenuModule } from 'primeng/menu';
 
 import { AppShellModule } from './../../../../libs/app-shell/src/lib/app-shell.module';
 import { AppLayoutModule } from './../../../../libs/app-shell/src/lib/components/app-layout/app-layout.module';
@@ -28,6 +30,8 @@ import { AppComponent } from './app.component';
 		BreadcrumbModule,
 		SidebarModule,
 		ButtonModule,
+		RippleModule,
+		MenuModule,
 
 		AppShellModule.forRoot({
 			serverEndpoint: environment.serverUrl,

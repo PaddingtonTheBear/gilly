@@ -1,10 +1,20 @@
 <lib-page-container>
 	<ng-template #header>
-		<div class="w-100">
-			<div class="w-100 bg-primary shadow-lg">
+		<div class="w-100 d-flex justify-content-between align-items-center bg-primary p-shadow-2">
+			<div>
 				<button pButton class="p-button-text" (click)="showSidebar = true">
 					<img src="assets/icons/icon-36x36.png" class="ml-3 clickable" />
 				</button>
+			</div>
+
+			<div>
+				<p-button
+					label="Requests"
+					icon="pi pi-inbox"
+					badge="8"
+					class="p-button-info"
+					(click)="requestMenu.toggle($event)"
+				></p-button>
 			</div>
 		</div>
 	</ng-template>
@@ -14,6 +24,8 @@
 </lib-page-container>
 
 <p-toast position="bottom-center" key="appToast"></p-toast>
+
+<p-menu #requestMenu [popup]="true" [model]="requestItems"></p-menu>
 
 <p-sidebar [(visible)]="showSidebar" *ngIf="auth.isAuthenticated()">
 	<lib-page-container>
