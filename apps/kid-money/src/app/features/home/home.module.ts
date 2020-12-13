@@ -6,10 +6,9 @@ import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 
 import { KMHomeComponent } from './home.component';
-import { KidOverviewCardComponent } from './kid-overview-card.component';
 
 @NgModule({
-	declarations: [KMHomeComponent, KidOverviewCardComponent],
+	declarations: [KMHomeComponent],
 	imports: [
 		CommonModule,
 

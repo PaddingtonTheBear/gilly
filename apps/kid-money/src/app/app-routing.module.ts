@@ -12,7 +12,7 @@ const routes: Routes = [
 	{
 		path: 'parent',
 		loadChildren: () => import('./features/parent/parent.module').then((m) => m.ParentModule),
-		data: { animation: 'Parent', breadcrumb: 'Parent', expectedRoles: 'parent' },
+		data: { animation: 'Parent', breadcrumb: 'Parent', expectedRoles: ['parent'] },
 		canActivate: [RoleGuard, AuthGuard]
 	},
 	{
@@ -23,7 +23,7 @@ const routes: Routes = [
 	},
 	{
 		path: '',
-		redirectTo: 'home',
+		redirectTo: 'parent',
 		pathMatch: 'full',
 		canActivate: []
 	}
