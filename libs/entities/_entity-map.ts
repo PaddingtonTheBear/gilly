@@ -1,3 +1,4 @@
+import { KMParent } from './kid-money/km-parent';
 import { Picture } from './_common/picture';
 import { MetricPageView } from './_metrics/metric-page-view';
 import { MetricPageVisit } from './_metrics/metric-page-visit';
@@ -25,6 +26,7 @@ export const entityMap = {
 	Picture,
 
 	// KID MONEY
+	KMParent,
 	Kid,
 	KMTransaction
 };

@@ -19,6 +19,11 @@ export const readData = async (req: Request, res: Response) => {
 	const model = entityMap[entityName];
 	const concreteModel = new model();
 
+	if (model.disableDirectRead) {
+		(<any>this).res.status(403).send('You are not allowed to transaction this entity!');
+		return;
+	}
+
 	let userJwt;
 	if (!model.ignoreAuthorization) {
 		userJwt = <any>jwt.verify(<string>res.getHeader('token'), config.jwtSecret);

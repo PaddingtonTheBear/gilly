@@ -1,13 +1,15 @@
-import { EntityFieldConfig } from './../base';
-import { Column, Entity, OneToMany } from 'typeorm';
+import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
 
 import { Picture } from '../_common/picture';
 import { BaseModel } from '../base';
+import { EntityFieldConfig } from './../base';
+import { KMParent } from './km-parent';
 import { KMTransaction } from './km-transaction';
 
 @Entity()
 export class Kid extends BaseModel {
 	static displayName = 'Kid';
+	static disableDirectRead = true;
 
 	@Column({ nullable: true })
 	firstName: string;
@@ -38,6 +40,9 @@ export class Kid extends BaseModel {
 
 	@OneToMany((type) => Picture, (picture) => picture.kid, { eager: true, cascade: true })
 	pictures?: Picture[];
+
+	@ManyToOne((type) => KMParent, (parent) => parent.kids, { onDelete: 'SET NULL' })
+	parent?: KMParent;
 
 	static relationships = [
 		{ model: KMTransaction, name: 'transactions' },
@@ -74,7 +79,7 @@ export class Kid extends BaseModel {
 		{ key: 'birthday', type: 'date' },
 		{ key: 'gender' },
 		{ key: 'notes', label: 'Notes', type: 'textarea' },
-		{ key: 'money' },
+		{ key: 'money' }
 		// { key: 'transactions', type: 'array' },
 	];
 }
