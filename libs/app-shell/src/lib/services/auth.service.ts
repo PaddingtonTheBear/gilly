@@ -43,29 +43,20 @@ export class AuthService {
 		this.config = config;
 	}
 
-	handleLogin(login: { username: string; password: string }, isCertLogin?: boolean) {
+	handleLogin(login: { username: string; password: string }, loginRoute?: string) {
 		this.loading = true;
 
-		return this.http
-			.post(
-				`${
-					isCertLogin
-						? this.config.securityTokenEndpoint || this.config.securityEndpoint
-						: this.config.securityEndpoint
-				}${isCertLogin ? '-cert' : ''}`,
-				login
-			)
-			.pipe(
-				tap((user: User) => {
-					this.setUserFromServer(user);
-					this.loading = false;
-				}),
-				catchError((error) => {
-					console.error('LOGIN ERROR: An error occurred:', error);
-					this.loading = false;
-					return throwError(error);
-				})
-			);
+		return this.http.post(`${loginRoute || this.config.securityEndpoint}`, login).pipe(
+			tap((user: User) => {
+				this.setUserFromServer(user);
+				this.loading = false;
+			}),
+			catchError((error) => {
+				console.error('LOGIN ERROR: An error occurred:', error);
+				this.loading = false;
+				return throwError(error);
+			})
+		);
 	}
 
 	isUserExpired(user: User) {

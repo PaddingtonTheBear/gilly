@@ -32,13 +32,11 @@ export class LoginComponent implements OnInit {
 		});
 	}
 
-	onSubmit(isCertLogin?: boolean) {
-		if (!isCertLogin) {
-			this.login.username = this.loginForm.value.identifier.split('@')[0];
-			this.login.password = this.loginForm.value.password;
-		}
+	onSubmit() {
+		this.login.username = this.loginForm.value.identifier.split('@')[0];
+		this.login.password = this.loginForm.value.password;
 
-		this.auth.handleLogin(this.login, isCertLogin).subscribe(
+		this.auth.handleLogin(this.login).subscribe(
 			(user) => {},
 			(error) => {
 				this.errorMsg = error.error;
