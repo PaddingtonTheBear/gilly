@@ -7,7 +7,6 @@ import { DataService } from '../../../../../../libs/data/src/lib/services/data/d
 	template: `
 		<lib-page-container [fluidMain]="false">
 			<ng-template #header>
-				<h2 class="ml-3">Kids</h2>
 			</ng-template>
 			<ng-template #main>
 				<div class="d-flex flex-wrap mb-3">
