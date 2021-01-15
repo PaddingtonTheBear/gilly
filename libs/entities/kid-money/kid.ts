@@ -1,3 +1,4 @@
+import { BaseUser } from './../auth/base-user';
 import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
 
 import { Picture } from '../_common/picture';
@@ -7,7 +8,7 @@ import { KMParent } from './km-parent';
 import { KMTransaction } from './km-transaction';
 
 @Entity()
-export class Kid extends BaseModel {
+export class Kid extends BaseUser {
 	static displayName = 'Kid';
 	static disableDirectRead = true;
 

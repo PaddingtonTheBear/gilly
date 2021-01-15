@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
 		this.login.password = this.loginForm.value.password;
 
 		this.auth.handleLogin(this.login).subscribe(
-			(user) => {},
+			null,
 			(error) => {
 				this.errorMsg = error.error;
 			}

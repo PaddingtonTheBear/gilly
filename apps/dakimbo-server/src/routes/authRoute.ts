@@ -10,6 +10,8 @@ const authController = new AuthController();
 //Login route
 router.post('/login', authController.login.bind(authController));
 
+router.post('/login/:entity', authController.login.bind(authController));
+
 router.post('/login-cert', authController.loginCertificate.bind(authController));
 
 //Change my password

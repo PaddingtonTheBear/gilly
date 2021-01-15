@@ -29,13 +29,15 @@ export async function createAdminUser() {
 		user.password = 'superadmin';
 		new UserController().hashPassword(user);
 		user.email = 'aDm!n@admin.com';
-		user.roles = [superadminRole];
+		user.authRoles = [superadminRole];
+		user.roles = ['superadmin'];
 		const adminUser = await getRepository(User).save(user);
 
 		console.log('Created Admin User! ', JSON.stringify(adminUser));
 	} else {
 		if (!adminUser.roles || !adminUser.roles.length) {
-			adminUser.roles = [superadminRole];
+			adminUser.authRoles = [superadminRole];
+			adminUser.roles = ['superadmin'];
 
 			console.log(`Updated Super Admin User!`);
 		}

@@ -37,7 +37,13 @@
 		</ng-template>
 		<ng-template #footer>
 			<div class="w-100 pt-1">
-				<button pButton class="w-100" label="Log Out" icon="pi pi-sign-out"></button>
+				<button
+					pButton
+					class="w-100"
+					label="Log Out"
+					icon="pi pi-sign-out"
+					(click)="auth.logout()"
+				></button>
 			</div>
 		</ng-template>
 	</lib-page-container>

@@ -1,17 +1,14 @@
-import { User } from './../auth/user';
-import { Column, Entity, OneToMany } from 'typeorm';
+import { Entity, OneToMany } from 'typeorm';
 
-import { BaseModel } from '../base';
+import { BaseUser } from '../auth/base-user';
 import { Kid } from './kid';
 
 @Entity()
-export class KMParent extends User {
+export class KMParent extends BaseUser {
 	static displayName = 'KMParent';
-	
-	@OneToMany((type) => Kid, kid => kid.parent)
+
+	@OneToMany((type) => Kid, (kid) => kid.parent)
 	kids?: Kid[];
 
-	relationships = [
-		{ model: Kid, name: 'kids', modelName: 'Kid' }
-	];
+	relationships = [{ model: Kid, name: 'kids', modelName: 'Kid' }];
 }

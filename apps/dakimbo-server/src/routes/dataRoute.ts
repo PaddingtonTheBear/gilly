@@ -10,13 +10,13 @@ const dataController = new DataController();
 
 router.get(
 	'/:entity',
-	[checkJwt, checkRole(['superadmin', 'admin', 'user', 'guest'])],
+	[checkJwt, checkRole(['superadmin', 'admin', 'user'])],
 	dataController.get
 );
 
 router.post(
 	'/:entity',
-	[checkJwt, checkRole(['superadmin', 'admin', 'user', 'guest'])],
+	[checkJwt, checkRole(['superadmin', 'admin', 'user'])],
 	dataController.create.bind(dataController)
 );
 

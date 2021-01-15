@@ -1,7 +1,7 @@
 import { Column, Entity, ManyToMany, Unique } from 'typeorm';
 
-import { BaseModel } from '../base';
 import { AuthRole } from './auth-role';
+import { BaseUser } from './base-user';
 
 @Entity({
 	name: 'auth_user',
@@ -10,49 +10,11 @@ import { AuthRole } from './auth-role';
 	}
 })
 @Unique(['username'])
-export class User extends BaseModel {
+export class User extends BaseUser {
 	static displayName = 'User';
 
-	constructor(props?: User) {
-		super(props);
-	}
-
-	@Column()
-	username?: string;
-
-	@Column()
-	password?: string;
-
-	@Column({
-		nullable: true,
-
-		length: 255
-	})
-	email?: string;
-
-	@Column({
-		nullable: true,
-		default: 0
-	})
-	numSuccessfulLogin?: number;
-
-	@Column({
-		nullable: true,
-		default: 0
-	})
-	numFailedLogin?: number;
-
-	@Column({ nullable: true })
-	lastLoggedInDate?: Date;
-
-	@Column({ default: false })
-	isLocked?: boolean;
-
 	@ManyToMany((type) => AuthRole, (role) => role.users, { eager: true, cascade: true })
-	roles?: AuthRole[];
-
-	jwt?: string;
-	expiry?: Date;
+	authRoles?: AuthRole[];
 
 	static relationships = [{ model: AuthRole, name: 'roles' }];
 }

@@ -4,6 +4,7 @@ import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { DataServiceModule } from './../../../data/src/lib/services/data/data-service.module';
+import { User } from './../../../entities/auth/user';
 import { AppLayoutModule } from './components/app-layout/app-layout.module';
 import { ErrorPageComponent } from './components/error-page/error-page.component';
 import { ErrorPageModule } from './components/error-page/error-page.module';
@@ -25,6 +26,7 @@ export interface AppShellModuleConfig {
 	serverEndpoint: string;
 	dataEndpoint: string;
 	securityEndpoint: string;
+	securityUserEntities?: User[];
 	securityTokenEndpoint?: string;
 	mediaEndpoint?: string;
 

@@ -3,7 +3,7 @@ import { Inject, Injectable, Optional } from '@angular/core';
 import { Router } from '@angular/router';
 import { isBefore } from 'date-fns';
 import { addHours } from 'date-fns/esm';
-import { BehaviorSubject, throwError } from 'rxjs';
+import { BehaviorSubject, combineLatest, merge, of, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
 import { AppShellModuleConfig } from '../app-shell.module';
@@ -43,20 +43,53 @@ export class AuthService {
 		this.config = config;
 	}
 
-	handleLogin(login: { username: string; password: string }, loginRoute?: string) {
+	handleLogin(login: { username: string; password: string }) {
 		this.loading = true;
 
-		return this.http.post(`${loginRoute || this.config.securityEndpoint}`, login).pipe(
-			tap((user: User) => {
-				this.setUserFromServer(user);
-				this.loading = false;
-			}),
-			catchError((error) => {
-				console.error('LOGIN ERROR: An error occurred:', error);
-				this.loading = false;
-				return throwError(error);
-			})
-		);
+		if (this.config.securityUserEntities) {
+			const userEntitiesLogin$ = this.config.securityUserEntities.map((entity: User) => {
+				return new BehaviorSubject(null);
+			});
+			const userEntitiesLoginObs = this.config.securityUserEntities.map(
+				(entity: User, i: number) => {
+					return this.http
+						.post(`${this.config.securityEndpoint}/${entity.constructor.name}`, login)
+						.pipe(
+							tap((value) => {
+								userEntitiesLogin$[i].next(value);
+							}),
+							catchError((e) => {
+								return of(e);
+							})
+						);
+				}
+			);
+
+			merge(...userEntitiesLoginObs).subscribe();
+
+			return combineLatest(userEntitiesLogin$).pipe(
+				tap((res: any[]) => {
+					res.filter((r) => r).forEach((r) => {
+						if (r && r.jwt) {
+							this.setUserFromServer(r);
+							this.loading = false;
+						}
+					});
+				})
+			);
+		} else {
+			return this.http.post(`${this.config.securityEndpoint}`, login).pipe(
+				tap((user: User) => {
+					this.setUserFromServer(user);
+					this.loading = false;
+				}),
+				catchError((error) => {
+					console.error('LOGIN ERROR: An error occurred:', error);
+					this.loading = false;
+					return throwError(error);
+				})
+			);
+		}
 	}
 
 	isUserExpired(user: User) {
@@ -93,7 +126,7 @@ export class AuthService {
 	}
 
 	getUserRoles(): string[] {
-		return (this.getUser().roles || []).map((r) => r.role);
+		return (this.getUser().roles || []).map((r: any) => r.role || r);
 	}
 
 	isUserAdmin(): boolean {

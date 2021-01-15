@@ -1,11 +1,13 @@
+import { Database } from './../database/database';
 import * as bcrypt from 'bcryptjs';
 import { Request, Response } from 'express';
 import * as jwt from 'jsonwebtoken';
-import { getRepository } from 'typeorm';
+import { getRepository, Repository } from 'typeorm';
 import chalk from 'chalk';
 
 import { User } from '../../../../libs/entities/auth/user';
 import config from '../config';
+import { entityMap } from '../../../../libs/entities/_entity-map';
 
 export class UserController {
 	async listAll(req: Request, res: Response) {
@@ -55,9 +57,13 @@ export class UserController {
 		this.hashPassword(user);
 
 		//Try to save. If fails, the username is already in use
-		const userRepository = getRepository(User);
+		const entityName = req.params.entity;
+		const entityModel = entityMap[entityName];
+		const userRepository: Repository<any> = entityName
+			? getRepository(entityModel)
+			: getRepository(User);
 		try {
-			await userRepository.save(user);
+			await userRepository.save(<any>user);
 		} catch (e) {
 			res.status(409).send('Username already in use!');
 			return;
@@ -80,7 +86,11 @@ export class UserController {
 		const { adminUser } = <any>jwt.verify(<string>res.getHeader('token'), config.jwtSecret);
 
 		//Try to find user on database
-		const userRepository = getRepository(User);
+		const entityName = req.params.entity;
+		const entityModel = entityMap[entityName];
+		const userRepository: Repository<any> = entityName
+			? getRepository(entityModel)
+			: getRepository(User);
 		let user;
 		try {
 			user = await userRepository.findOneOrFail(id);
@@ -125,7 +135,11 @@ export class UserController {
 
 		const { adminUser } = <any>jwt.verify(<string>res.getHeader('token'), config.jwtSecret);
 
-		const userRepository = getRepository(User);
+		const entityName = req.params.entity;
+		const entityModel = entityMap[entityName];
+		const userRepository: Repository<any> = entityName
+			? getRepository(entityModel)
+			: getRepository(User);
 		let user: User;
 		try {
 			user = await userRepository.findOneOrFail(id);

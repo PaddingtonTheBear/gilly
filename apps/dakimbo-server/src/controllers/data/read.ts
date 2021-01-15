@@ -20,7 +20,7 @@ export const readData = async (req: Request, res: Response) => {
 	const concreteModel = new model();
 
 	if (model.disableDirectRead) {
-		(<any>this).res.status(403).send('You are not allowed to transaction this entity!');
+		res.status(403).send('You are not allowed to transaction this entity!');
 		return;
 	}
 
@@ -34,7 +34,7 @@ export const readData = async (req: Request, res: Response) => {
 	}
 
 	if (!checkModelAllowedRoles(model, userJwt)) {
-		(<any>this).res.status(403).send('You are not allowed to transaction this entity!');
+		res.status(403).send('You are not allowed to transaction this entity!');
 		return;
 	}
 

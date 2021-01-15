@@ -1,9 +1,10 @@
-import { Request, Response } from 'express';
 import * as bcrypt from 'bcryptjs';
+import chalk from 'chalk';
+import { Request, Response } from 'express';
 import * as jwt from 'jsonwebtoken';
 import { getRepository } from 'typeorm';
-import chalk from 'chalk';
 
+import { entityMap } from '../../../../libs/entities/_entity-map';
 import { AuthRole } from '../../../../libs/entities/auth/auth-role';
 import config from '../config';
 import { User } from './../../../../libs/entities/auth/user';
@@ -31,25 +32,38 @@ export class AuthController {
 			return;
 		}
 
+		let userRepoToUse = this.userRepository;
+		const entityName = req.params.entity;
+		const entityModel = entityMap[entityName];
+		if (entityModel) userRepoToUse = getRepository(entityModel);
+
 		//Get user from database
 		let user: User;
 		try {
-			user = await this.userRepository.findOneOrFail({ where: [{ username }, { email }] });
+			user = await userRepoToUse.findOneOrFail({ where: [{ username }, { email }] });
 		} catch (error) {
 			res.status(401).send(
 				'Account was not found, please check your username / e-mail and try again.'
 			);
-			console.log(`LOGIN: User ${chalk.magenta(username)} not found; failed to log in!`);
+			console.log(
+				`LOGIN${entityName ? '-' + entityName : ''}: User ${chalk.magenta(
+					username
+				)} not found; failed to log in!`
+			);
 			return;
 		}
 
 		if (user.numFailedLogin >= loginAttempts || user.isLocked) {
 			const attemptsRemaining = loginAttempts - user.numFailedLogin;
 			user.isLocked = user.isLocked || attemptsRemaining <= 0;
-			await this.userRepository.save(user); // increment num failed login counter
+			await userRepoToUse.save(user); // increment num failed login counter
 
 			res.status(401).send('Account is locked; please contact an administrator!');
-			console.log(`LOGIN: User ${chalk.magenta(username)} has a locked account.`);
+			console.log(
+				`LOGIN${entityName ? '-' + entityName : ''}: User ${chalk.magenta(
+					username
+				)} has a locked account.`
+			);
 			return;
 		}
 
@@ -59,7 +73,7 @@ export class AuthController {
 			user.numFailedLogin++;
 			const attemptsRemaining = loginAttempts - user.numFailedLogin;
 			user.isLocked = user.isLocked || attemptsRemaining <= 0;
-			await this.userRepository.save(user); // increment num failed login counter
+			await userRepoToUse.save(user); // increment num failed login counter
 
 			res.status(401).send(
 				`You entered a wrong username, e-mail or password. ${
@@ -69,7 +83,9 @@ export class AuthController {
 				} `
 			);
 			console.log(
-				`LOGIN: User ${chalk.magenta(user.username)} wrong password; failed to log in!`
+				`LOGIN${entityName ? '-' + entityName : ''}: User ${chalk.magenta(
+					user.username
+				)} wrong password; failed to log in!`
 			);
 
 			return;
@@ -168,8 +184,8 @@ export class AuthController {
 			{
 				userId: user.id,
 				username: user.username,
-				roles: user.roles.map((r) => {
-					return { role: r.role };
+				roles: (user.roles || []).map((r: any) => {
+					return { role: r.role || r };
 				})
 			},
 			config.jwtSecret,

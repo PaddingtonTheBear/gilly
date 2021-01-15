@@ -1,14 +1,12 @@
 <div class="d-flex align-items-center justify-content-center container h-100 login-page">
 	<div
-		class="d-flex flex-column justify-content-center mt-3 mb-3 p-shadow-4 p-3"
-		style="width: 50%;"
+		class="d-flex flex-column justify-content-center mt-3 mb-3 p-shadow-4 p-3 col-lg-6 col-sm-12"
 	>
 		<h2 class="text-center border-bottom w-100 display-4">Login</h2>
 
 		<p-progressBar class="my-1" mode="indeterminate" *ngIf="auth.loading"></p-progressBar>
 
 		<div class="w-100">
-			<h4 class="w-100 text-center">Username / Password</h4>
 			<form
 				[formGroup]="loginForm"
 				class="d-flex flex-column"

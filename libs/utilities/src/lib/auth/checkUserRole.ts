@@ -6,8 +6,8 @@ export const checkUserRole = (user?: User, expectedRoles?: string[]): boolean =>
 	const expectedRolesLower: string[] = expectedRoles.map((er) =>
 		er.toLowerCase().trim().split(' ').join('')
 	);
-	const userRolesLower: string[] = (user.roles || []).map((r) =>
-		r.role.toLowerCase().trim().split(' ').join('')
+	const userRolesLower: string[] = (user.roles || []).map((r: any) =>
+		(r.role || r).toLowerCase().trim().split(' ').join('')
 	);
 
 	return (

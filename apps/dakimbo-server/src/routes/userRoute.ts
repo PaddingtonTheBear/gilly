@@ -25,6 +25,8 @@ router.get(
 //Create a new user
 router.post('/', userController.newUser.bind(userController));
 
+router.post('/:entity', userController.newUser.bind(userController));
+
 //Edit one user
 router.patch(
 	'/:id',
@@ -32,9 +34,21 @@ router.patch(
 	userController.editUser.bind(userController)
 );
 
+router.patch(
+	'/:id/:entityName',
+	[checkJwt, checkRole(['superadmin'])],
+	userController.editUser.bind(userController)
+);
+
 //Delete one user
 router.delete(
 	'/:id',
+	[checkJwt, checkRole(['superadmin'])],
+	userController.deleteUser.bind(userController)
+);
+
+router.delete(
+	'/:id/:entityName',
 	[checkJwt, checkRole(['superadmin'])],
 	userController.deleteUser.bind(userController)
 );
