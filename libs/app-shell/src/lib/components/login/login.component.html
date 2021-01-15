@@ -1,42 +1,68 @@
 <div class="d-flex align-items-center justify-content-center container h-100 login-page">
-	<div class="d-flex flex-column justify-content-center mt-3 mb-3" style="width: 50%;">
+	<div
+		class="d-flex flex-column justify-content-center mt-3 mb-3 p-shadow-4 p-3"
+		style="width: 50%;"
+	>
 		<h2 class="text-center border-bottom w-100 display-4">Login</h2>
 
-		<form [formGroup]="loginForm" class="p-fluid" (ngSubmit)="onSubmit()" *ngIf="loginForm">
-			<div class="p-field">
-				<label>Username</label>
-				<input type="text" pInputText formControlName="identifier" />
-				<small
-					class="p-invalid"
-					*ngIf="identifier.invalid && (identifier.dirty || identifier.touched)"
-				>
-					Please input your username or e-mail!
-				</small>
-			</div>
-			<div class="p-field mt-3">
-				<label>Password</label>
-				<input type="password" pInputText formControlName="password" />
-				<small
-					class="p-invalid"
-					*ngIf="password.invalid && (password.dirty || password.touched)"
-				>
-					Please input your Password!
-				</small>
-			</div>
+		<p-progressBar class="my-1" mode="indeterminate" *ngIf="auth.loading"></p-progressBar>
 
-			<button
-				pButton
-				pRipple
-				type="submit"
-				label="Log In"
-				icon="pi pi-sign-in"
-				class="p-button-raised p-button-text w-100 mt-3"
-				[disabled]="identifier.invalid || password.invalid"
-			></button>
+		<div class="w-100">
+			<h4 class="w-100 text-center">Username / Password</h4>
+			<form
+				[formGroup]="loginForm"
+				class="d-flex flex-column"
+				(ngSubmit)="onSubmit()"
+				*ngIf="loginForm"
+			>
+				<div class="p-field">
+					<div class="p-inputgroup">
+						<span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+						<input
+							type="text"
+							formControlName="identifier"
+							pInputText
+							placeholder="Username"
+						/>
+					</div>
+					<small
+						class="p-invalid"
+						*ngIf="(identifier.dirty || identifier.touched) && identifier.invalid"
+					>
+						Please input your username or e-mail!
+					</small>
+				</div>
 
-			<div class="text-danger mt-3" *ngIf="errorMsg">
-				{{ errorMsg }}
-			</div>
-		</form>
+				<div class="p-field">
+					<div class="p-inputgroup">
+						<span class="p-inputgroup-addon"><i class="pi pi-lock"></i></span>
+						<input
+							type="password"
+							pPassword
+							[feedback]="false"
+							formControlName="password"
+							placeholder="Password"
+						/>
+					</div>
+					<small
+						class="p-invalid"
+						*ngIf="(password.dirty || password.touched) && password.invalid"
+					>
+						Please input your password!
+					</small>
+				</div>
+
+				<button
+					pButton
+					class="p-button-raised"
+					label="Login"
+					[disabled]="identifier.invalid || password.invalid"
+				></button>
+
+				<div class="text-danger mt-3" *ngIf="errorMsg">
+					{{ errorMsg }}
+				</div>
+			</form>
+		</div>
 	</div>
 </div>
